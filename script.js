@@ -1,50 +1,59 @@
-const intro = document.getElementById("intro");
-const content = document.getElementById("content");
+/* MUSIC */
 const music = document.getElementById("bg-music");
+document.body.addEventListener("click", () => {
+  music.play();
+}, { once: true });
 
-/* START */
-intro.addEventListener("touchstart", start, { passive: true });
-intro.addEventListener("click", start);
-
-function start() {
-  intro.style.display = "none";
-  content.classList.remove("hidden");
-  music.play().catch(() => {});
-}
-
-/* REVEAL */
-const reveals = document.querySelectorAll(".reveal");
-
+/* FADE ON SCROLL */
+const sections = document.querySelectorAll(".section");
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add("active");
+      entry.target.classList.add("show");
+    } else {
+      entry.target.classList.remove("show");
     }
   });
 }, { threshold: 0.6 });
 
-reveals.forEach(el => observer.observe(el));
+sections.forEach(section => observer.observe(section));
 
-/* TOUCH TRAIL */
-function createTrail(x, y) {
-  const dot = document.createElement("div");
-  dot.className = "touch-trail";
-  dot.style.left = x + "px";
-  dot.style.top = y + "px";
-  document.body.appendChild(dot);
-  setTimeout(() => dot.remove(), 1000);
+/* PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = Array.from({ length: 80 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2 + 1,
+  dy: Math.random() * 1 + 0.5
+}));
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.y += p.dy;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
 }
+animateParticles();
 
-let last = 0;
-document.addEventListener("touchmove", e => {
-  const now = Date.now();
-  if (now - last > 40) {
-    const t = e.touches[0];
-    createTrail(t.clientX, t.clientY);
-    last = now;
-  }
-}, { passive: true });
+/* SCROLL TRAIL */
+const trail = document.getElementById("trail");
+const tctx = trail.getContext("2d");
+trail.width = innerWidth;
+trail.height = innerHeight;
 
-document.addEventListener("mousemove", e => {
-  createTrail(e.clientX, e.clientY);
+window.addEventListener("scroll", () => {
+  tctx.fillStyle = "rgba(255,255,255,0.15)";
+  tctx.beginPath();
+  tctx.arc(Math.random() * trail.width, Math.random() * trail.height, 2, 0, Math.PI * 2);
+  tctx.fill();
 });
