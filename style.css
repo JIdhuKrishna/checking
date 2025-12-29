@@ -10,20 +10,33 @@ body {
   overflow-x: hidden;
 }
 
-/* INTRO */
+/* INTRO SCREEN (FIXED) */
 #intro {
+  position: fixed;
+  inset: 0;
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   cursor: pointer;
+  z-index: 10000;
+
+  /* 🔥 CRITICAL FIXES */
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  touch-action: manipulation;
 }
 
 #intro h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 40px;
   animation: pulse 2s infinite;
+
+  /* 🔥 PREVENT TEXT CAPTURE */
+  pointer-events: none;
 }
 
 @keyframes pulse {
@@ -69,7 +82,7 @@ body {
   margin: 100px 0;
 }
 
-/* REVEAL ANIMATION */
+/* SCROLL REVEAL */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
