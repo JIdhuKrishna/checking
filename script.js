@@ -1,59 +1,50 @@
 const intro = document.getElementById("intro");
-const container = document.querySelector(".container");
+const content = document.getElementById("content");
 const music = document.getElementById("bg-music");
 
-/* START EXPERIENCE (MOBILE SAFE) */
-intro.addEventListener("touchstart", startExperience, { passive: true });
-intro.addEventListener("click", startExperience);
+/* START */
+intro.addEventListener("touchstart", start, { passive: true });
+intro.addEventListener("click", start);
 
-function startExperience() {
+function start() {
   intro.style.display = "none";
-  container.classList.remove("hidden");
-
-  music.play().catch(() => {
-    console.log("Music starts after user interaction");
-  });
+  content.classList.remove("hidden");
+  music.play().catch(() => {});
 }
 
-/* SCROLL REVEAL */
+/* REVEAL */
 const reveals = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-      }
-    });
-  },
-  { threshold: 0.6 }
-);
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+    }
+  });
+}, { threshold: 0.6 });
 
 reveals.forEach(el => observer.observe(el));
 
-/* TOUCH HEART TRAIL */
-function createHeart(x, y) {
-  const heart = document.createElement("div");
-  heart.className = "touch-heart";
-  heart.style.left = x + "px";
-  heart.style.top = y + "px";
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 1000);
+/* TOUCH TRAIL */
+function createTrail(x, y) {
+  const dot = document.createElement("div");
+  dot.className = "touch-trail";
+  dot.style.left = x + "px";
+  dot.style.top = y + "px";
+  document.body.appendChild(dot);
+  setTimeout(() => dot.remove(), 1000);
 }
 
-/* MOBILE TOUCH */
-let lastTime = 0;
+let last = 0;
 document.addEventListener("touchmove", e => {
   const now = Date.now();
-  if (now - lastTime > 40) {
-    const touch = e.touches[0];
-    createHeart(touch.clientX, touch.clientY);
-    lastTime = now;
+  if (now - last > 40) {
+    const t = e.touches[0];
+    createTrail(t.clientX, t.clientY);
+    last = now;
   }
 }, { passive: true });
 
-/* DESKTOP (OPTIONAL) */
 document.addEventListener("mousemove", e => {
-  createHeart(e.clientX, e.clientY);
+  createTrail(e.clientX, e.clientY);
 });
