@@ -2,12 +2,18 @@ const intro = document.getElementById("intro");
 const container = document.querySelector(".container");
 const music = document.getElementById("bg-music");
 
-/* START EXPERIENCE */
-intro.addEventListener("click", () => {
+/* START EXPERIENCE (MOBILE SAFE) */
+intro.addEventListener("touchstart", startExperience, { passive: true });
+intro.addEventListener("click", startExperience);
+
+function startExperience() {
   intro.style.display = "none";
   container.classList.remove("hidden");
-  music.play().catch(() => {});
-});
+
+  music.play().catch(() => {
+    console.log("Music starts after user interaction");
+  });
+}
 
 /* SCROLL REVEAL */
 const reveals = document.querySelectorAll(".reveal");
@@ -36,7 +42,7 @@ function createHeart(x, y) {
   setTimeout(() => heart.remove(), 1000);
 }
 
-/* MOBILE */
+/* MOBILE TOUCH */
 let lastTime = 0;
 document.addEventListener("touchmove", e => {
   const now = Date.now();
@@ -45,9 +51,9 @@ document.addEventListener("touchmove", e => {
     createHeart(touch.clientX, touch.clientY);
     lastTime = now;
   }
-});
+}, { passive: true });
 
-/* DESKTOP (optional) */
+/* DESKTOP (OPTIONAL) */
 document.addEventListener("mousemove", e => {
   createHeart(e.clientX, e.clientY);
 });
