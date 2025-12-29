@@ -1,43 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Romantic Love Letter ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-  <h1>Tap to Open My Heart ❤️</h1>
-</div>
+<canvas id="particles"></canvas>
+<canvas id="trail"></canvas>
 
 <audio id="bg-music" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="music/song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- CONTENT -->
-<div id="content" class="hidden">
-  <h1 class="title reveal">Happy Birthday My Love 🎂</h1>
+<!-- INTRO -->
+<section class="section intro">
+  <h1>For the girl who owns my heart 💖</h1>
+  <p>Scroll slowly…</p>
+</section>
 
-  <p class="line reveal">Today isn’t just your birthday…</p>
-  <p class="line reveal">It’s the day my favorite person was born.</p>
+<!-- LOVE LINES -->
+<section class="section text">
+  <p>The day you came into my life… everything changed ✨</p>
+</section>
 
-  <img src="images/her1.jpg" class="photo reveal">
+<section class="section text">
+  <p>Your smile feels like home 🌸</p>
+</section>
 
-  <p class="line reveal">You walked into my life quietly,</p>
-  <p class="line reveal">and somehow became everything.</p>
+<!-- IMAGE -->
+<section class="section image">
+  <img src="images/img1.jpg" alt="memory">
+  <span>My favorite memory 📸</span>
+</section>
 
-  <img src="images/her2.jpg" class="photo reveal">
+<section class="section text">
+  <p>Every heartbeat whispers your name 💗</p>
+</section>
 
-  <p class="line reveal">No matter where life takes us,</p>
-  <p class="line reveal">I choose you. Always.</p>
+<section class="section image">
+  <img src="images/img2.jpg" alt="memory">
+  <span>You, always you 💕</span>
+</section>
 
-  <p class="signature reveal">— Yours Forever ❤️</p>
-</div>
+<section class="section text">
+  <p>On your birthday, I just want you to know…</p>
+</section>
+
+<section class="section text">
+  <p>You are my today, tomorrow, and forever 🎂❤️</p>
+</section>
+
+<section class="section image">
+  <img src="images/img3.jpg" alt="memory">
+</section>
+
+<!-- END -->
+<section class="section end">
+  <h2>Happy Birthday, My Love 💖</h2>
+  <p class="signature">— Yours always,<br>JK 💌</p>
+</section>
 
 <script src="script.js"></script>
 </body>
